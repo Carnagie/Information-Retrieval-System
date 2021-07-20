@@ -1,9 +1,10 @@
 import scrapy
+import time
+from scrapy.linkextractors import LinkExtractor
 
 TITLE_WORDS = ["covid19", "covid-19", "corona", "biontech", "pfizer"]
 KEYWORDS = []
 LANGUAGE = ["tr"]
-
 
 def relevance_checker(title_text):
     flag = False
@@ -30,7 +31,10 @@ class CovidSpider(scrapy.Spider):
 
     def parse(self, response):
         page = response.url.split("/")[2]
-        print(f'[CRAWLING]: {page}')
+        le = LinkExtractor()
+        links = le.extract_links(response)
+
+        print(f'[CRAWLING]: {response.url}')
 
         is_relevant = relevance_checker(str(response.css("title::text").get()))
         if len(response.css("title::text")) > 0:
@@ -38,7 +42,7 @@ class CovidSpider(scrapy.Spider):
             print(f'[RELEVANCE] {is_relevant}')
 
         if is_relevant:
-            filename = f'quotes-{page}.html'
+            filename = f'covids-{response.url}.html'
 
             print(f'[DOWNLOADING]: {filename}')
 
@@ -46,7 +50,8 @@ class CovidSpider(scrapy.Spider):
                 f.write(response.body)
             self.log(f'Saved file {filename}')
 
-            for href in response.css("a::attr('href')"):
-                print(f'[NEW URL] {href}')
-                url = response.urljoin(href.extract())
+            for link in links:
+                print(f'[NEW URL] {link.url}')
+                url = response.urljoin(link.url)
+                time.sleep(8)
                 yield scrapy.Request(url=url, callback=self.parse)
