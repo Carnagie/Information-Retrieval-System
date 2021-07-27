@@ -71,8 +71,8 @@ class CovidSpider(scrapy.Spider):
 
         yield {
             'url': url,
-            'title': str(article.title),
-            'text': str(article.text).lower(),
+            'title': article.title,
+            'text': article.text,
             'description': article.meta_description,
             'keywords': article.meta_keywords,
             #'html': article.html
