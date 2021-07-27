@@ -4,7 +4,13 @@ from scrapy import signals
 from newspaper import Article
 from scrapy.linkextractors import LinkExtractor
 
-filter_words = ['covid', 'corona', 'korona', 'biontech', 'sinovac', 'kovid']
+title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
+                      'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı',
+                      'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı',
+                      'test', 'pozitif', 'negatif', 'izolasyon', 'sokağa çıkma yasağı',
+                      'antikor', 'sosyal mesafe', 'maske', 'taşıyıcı', 'normal', 'wuhan']
+
+content_filter_words = ['covid', 'corona', 'korona', 'biontech', 'sinovac', 'kovid']
 LIMIT = 1
 
 
@@ -16,11 +22,16 @@ def covid_relevance(article):
     text = article.text
     keywords = article.meta_keywords
     description = article.meta_description
-    for fw in filter_words:
-        if (fw in title.lower()) or (fw in text.lower()) or (fw in ' '.join(keywords).lower()) or (
-                fw in description.lower()):
-            return True
-    return False
+
+    for cfw in content_filter_words:
+        if cfw in text.lower():
+
+            for fw in title_filter_words:
+                if (fw in title.lower()) or (fw in ' '.join(keywords).lower()) or (fw in description.lower()):
+                    return 1  # relevant
+            return 2         # not directly relevant, just contains covid keywords
+
+    return 0        # definitely not relevant
 
 
 # Main crawler class
@@ -58,7 +69,7 @@ class CovidSpider(scrapy.Spider):
         covid_related = covid_relevance(article)
 
         # Checking covid relevance & Article language
-        if (not covid_related) or article.meta_lang != 'tr':
+        if (covid_related!=1) or article.meta_lang != 'tr':
             return
 
         self.count += 1
