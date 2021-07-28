@@ -3,6 +3,7 @@ import scrapy
 from scrapy import signals
 from newspaper import Article
 from scrapy.linkextractors import LinkExtractor
+import os
 
 title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
                       'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı',
@@ -29,9 +30,9 @@ def covid_relevance(article):
             for fw in title_filter_words:
                 if (fw in title.lower()) or (fw in ' '.join(keywords).lower()) or (fw in description.lower()):
                     return 1  # relevant
-            return 2         # not directly relevant, just contains covid keywords
+            return 2  # not directly relevant, just contains covid keywords
 
-    return 0        # definitely not relevant
+    return 0  # definitely not relevant
 
 
 # Main crawler class
@@ -69,33 +70,78 @@ class CovidSpider(scrapy.Spider):
         covid_related = covid_relevance(article)
 
         # Checking covid relevance & Article language
-        if (covid_related!=1) or article.meta_lang != 'tr':
+        if (covid_related != 1 and covid_related != 2) or article.meta_lang != 'tr':
             return
 
-        self.count += 1
+        if covid_related == 1:
+            self.count += 1
 
-        print(f'[RELEVANCE]:{covid_related} -- [LANG]:{article.meta_lang}')
-        print(f'[TITLE]{article.title}')
-        print(f'[URL]{url}')
-        print(f'[COUNT]{self.count}')
-        print('#############################################')
+            print(f'[RELEVANCE]:{covid_related} -- [LANG]:{article.meta_lang}')
+            print(f'[TITLE]{article.title}')
+            print(f'[URL]{url}')
+            print(f'[COUNT]{self.count}')
 
-        yield {
-            'url': url,
-            'title': article.title,
-            'text': article.text,
-            'description': article.meta_description,
-            'keywords': article.meta_keywords,
-            #'html': article.html
-        }
+            filename = ' '.join([str(elem) for elem in url.split('/')[2:]]) + '.html'
+            with open("[DIRECT]" + filename, 'wb') as f:
+                f.write(response.body)
 
-        # Extracting next links
-        le = LinkExtractor()
-        links = le.extract_links(response)
+            print(f'[DOWNLOADED] {filename}')
 
-        for link in links:
-            new_url = response.urljoin(link.url)
-            try:
-                yield scrapy.Request(new_url, callback=self.parse)
-            except:
-                continue
+            print('#############################################')
+
+            yield {
+                'url': url,
+                'title': article.title,
+                'text': article.text,
+                'description': article.meta_description,
+                'keywords': article.meta_keywords,
+                'relevance': covid_related,
+                'html': filename
+            }
+
+            # Extracting next links
+            le = LinkExtractor()
+            links = le.extract_links(response)
+
+            for link in links:
+                new_url = response.urljoin(link.url)
+                try:
+                    yield scrapy.Request(new_url, callback=self.parse)
+                except:
+                    continue
+
+        elif covid_related == 2:
+
+            print(f'[RELEVANCE]:{covid_related} -- [LANG]:{article.meta_lang}')
+            print(f'[TITLE]{article.title}')
+            print(f'[URL]{url}')
+            print(f'[COUNT]{self.count} (not increased)')
+
+            filename = ' '.join([str(elem) for elem in url.split('/')[2:]]) + '.html'
+            with open("[RELATIVE]" + filename, 'w') as f:
+                f.write(response.body)
+
+            print(f'[DOWNLOADED] {filename}')
+
+            print('#############################################')
+
+            yield {
+                'url': url,
+                'title': article.title,
+                'text': article.text,
+                'description': article.meta_description,
+                'keywords': article.meta_keywords,
+                'relevance': covid_related,
+                'html': filename
+            }
+
+            # Extracting next links
+            le = LinkExtractor()
+            links = le.extract_links(response)
+
+            for link in links:
+                new_url = response.urljoin(link.url)
+                try:
+                    yield scrapy.Request(new_url, callback=self.parse)
+                except:
+                    continue
