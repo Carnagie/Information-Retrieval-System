@@ -15,10 +15,15 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0'
+
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 FEED_EXPORT_ENCODING = "utf-8"
+FEED_FORMAT = 'json'
+FEED_URI = "scraped.json"
+JOBDIR = 'crawls/end2end_1'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

@@ -6,7 +6,7 @@ from scrapy.linkextractors import LinkExtractor
 import os
 
 title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
-                      'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı',
+                      'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı', 'vaka'
                       'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı',
                       'test', 'pozitif', 'negatif', 'izolasyon', 'sokağa çıkma yasağı',
                       'antikor', 'sosyal mesafe', 'maske', 'taşıyıcı', 'normal', 'wuhan']
@@ -31,6 +31,10 @@ def covid_relevance(article):
                 if (fw in title.lower()) or (fw in ' '.join(keywords).lower()) or (fw in description.lower()):
                     return 1  # relevant
             return 2  # not directly relevant, just contains covid keywords
+
+    for cfw in content_filter_words:
+        if (cfw in title.lower()) or (cfw in ' '.join(keywords).lower()) or (cfw in description.lower()):
+            return 1  # relevant
 
     return 0  # definitely not relevant
 
