@@ -6,10 +6,12 @@ from scrapy.linkextractors import LinkExtractor
 import os
 
 title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
-                      'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı', 'vaka'
+                      'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı', 'vaka',
                       'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı',
                       'test', 'pozitif', 'negatif', 'izolasyon', 'sokağa çıkma yasağı',
-                      'antikor', 'sosyal mesafe', 'maske', 'taşıyıcı', 'normal', 'wuhan']
+                      'bilim kurulu','who', 'dsö', 'dünya sağlık örgütü', 'antikor', 'sosyal mesafe',
+                      'maske', 'taşıyıcı', 'normal', 'wuhan']
+
 
 content_filter_words = ['covid', 'corona', 'korona', 'biontech', 'sinovac', 'kovid']
 LIMIT = 1
@@ -58,6 +60,10 @@ class CovidSpider(scrapy.Spider):
     # To signal the crawler while crawling
     def spider_closed(self, spider):
         print('close spider')
+
+    def start_requests(self):
+        for url in self.start_urls:
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
 
