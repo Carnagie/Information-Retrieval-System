@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="tr" class="no-js">
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript;n||console.error("WPRocket unable to document.write this: "+t);const i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta name="google-site-verification" content="ukINNPQiAppZ4qC4G5UoIMkvrRapDp-10b_ZUh57rxU" />
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+    
+	<!--[if lt IE 9]>
+	<script src="https://parlakjurnal.com/wp-content/themes/fox/js/html5.js"></script>
+	<![endif]-->
+    
+    <script type="rocketlazyloadscript">(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<!-- Jetpack Site Verification Tags -->
+<meta name="google-site-verification" content="ukINNPQiAppZ4qC4G5UoIMkvrRapDp-10b_ZUh57rxU" />
+<meta name="yandex-verification" content="7ef9bb8da34da856" />
+
+	<!-- This site is optimized with the Yoast SEO plugin v16.7 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Koronavirüs ve İklim Değişikliği - Gavin A. Schmidt | Parlak Jurnal</title><link rel="stylesheet" href="https://parlakjurnal.com/wp-content/cache/min/1/f66a03f798f72e93a4fb8e98c8795d8f.css" media="all" data-minify="1" />
+	<meta name="description" content="Pandemi sürecinin arka planında, devasa boyutlara gelen küresel ısınma tehdidine etkileri. İklim değişikliği hakkında bilimsel yorumlar." />
+	<link rel="canonical" href="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/" />
+	<meta property="og:locale" content="tr_TR" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Koronavirüs ve İklim Değişikliği - Gavin A. Schmidt | Parlak Jurnal" />
+	<meta property="og:description" content="Pandemi sürecinin arka planında, devasa boyutlara gelen küresel ısınma tehdidine etkileri. İklim değişikliği hakkında bilimsel yorumlar." />
+	<meta property="og:url" content="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/" />
+	<meta property="og:site_name" content="Parlak Jurnal" />
+	<meta property="article:publisher" content="https://www.facebook.com/parlakjurnal" />
+	<meta property="article:published_time" content="2020-05-21T05:30:24+00:00" />
+	<meta property="article:modified_time" content="2020-09-16T23:30:16+00:00" />
+	<meta property="og:image" content="https://parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg" />
+	<meta property="og:image:width" content="448" />
+	<meta property="og:image:height" content="672" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:creator" content="@parlakjurnal" />
+	<meta name="twitter:site" content="@parlakjurnal" />
+	<meta name="twitter:label1" content="Yazan:" />
+	<meta name="twitter:data1" content="Konuk Yazar" />
+	<meta name="twitter:label2" content="Tahmini okuma süresi" />
+	<meta name="twitter:data2" content="4 dakika" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://parlakjurnal.com/#organization","name":"Parlak Jurnal","url":"https://parlakjurnal.com/","sameAs":["https://www.facebook.com/parlakjurnal","https://www.instagram.com/parlakjurnal/","https://www.youtube.com/channel/UCJ2Fi8LFYW_vnVuJE_YemqQ","https://twitter.com/parlakjurnal"],"logo":{"@type":"ImageObject","@id":"https://parlakjurnal.com/#logo","inLanguage":"tr","url":"https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?fit=567%2C137&ssl=1","contentUrl":"https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?fit=567%2C137&ssl=1","width":567,"height":137,"caption":"Parlak Jurnal"},"image":{"@id":"https://parlakjurnal.com/#logo"}},{"@type":"WebSite","@id":"https://parlakjurnal.com/#website","url":"https://parlakjurnal.com/","name":"Parlak Jurnal","description":"Her Kafadan Bir Fikir","publisher":{"@id":"https://parlakjurnal.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://parlakjurnal.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"tr"},{"@type":"ImageObject","@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#primaryimage","inLanguage":"tr","url":"https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/\u0130klim-De\u011fi\u015fikli\u011fi.jpg?fit=448%2C672&ssl=1","contentUrl":"https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/\u0130klim-De\u011fi\u015fikli\u011fi.jpg?fit=448%2C672&ssl=1","width":448,"height":672,"caption":"iklim de\u011fi\u015fikli\u011fi"},{"@type":"WebPage","@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#webpage","url":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/","name":"Koronavir\u00fcs ve \u0130klim De\u011fi\u015fikli\u011fi - Gavin A. Schmidt | Parlak Jurnal","isPartOf":{"@id":"https://parlakjurnal.com/#website"},"primaryImageOfPage":{"@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#primaryimage"},"datePublished":"2020-05-21T05:30:24+00:00","dateModified":"2020-09-16T23:30:16+00:00","description":"Pandemi s\u00fcrecinin arka plan\u0131nda, devasa boyutlara gelen k\u00fcresel \u0131s\u0131nma tehdidine etkileri. \u0130klim de\u011fi\u015fikli\u011fi hakk\u0131nda bilimsel yorumlar.","breadcrumb":{"@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#breadcrumb"},"inLanguage":"tr","potentialAction":[{"@type":"ReadAction","target":["https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/"]}]},{"@type":"BreadcrumbList","@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana sayfa","item":"https://parlakjurnal.com/"},{"@type":"ListItem","position":2,"name":"Koronavir\u00fcs ve \u0130klim De\u011fi\u015fikli\u011fi &#8211; Gavin A. Schmidt"}]},{"@type":"Article","@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#article","isPartOf":{"@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#webpage"},"author":{"@id":"https://parlakjurnal.com/#/schema/person/f6f6502a22aedd30dd99d5ee4b3bf883"},"headline":"Koronavir\u00fcs ve \u0130klim De\u011fi\u015fikli\u011fi &#8211; Gavin A. Schmidt","datePublished":"2020-05-21T05:30:24+00:00","dateModified":"2020-09-16T23:30:16+00:00","mainEntityOfPage":{"@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#webpage"},"wordCount":725,"commentCount":2,"publisher":{"@id":"https://parlakjurnal.com/#organization"},"image":{"@id":"https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#primaryimage"},"thumbnailUrl":"https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/\u0130klim-De\u011fi\u015fikli\u011fi.jpg?fit=448%2C672&ssl=1","keywords":["emisyon","iklim de\u011fi\u015fikli\u011fi","Koronavir\u00fcs"],"articleSection":["Bilim","\u00c7eviri"],"inLanguage":"tr","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#respond"]}]},{"@type":"Person","@id":"https://parlakjurnal.com/#/schema/person/f6f6502a22aedd30dd99d5ee4b3bf883","name":"Konuk Yazar","image":{"@type":"ImageObject","@id":"https://parlakjurnal.com/#personlogo","inLanguage":"tr","url":"https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&d=mm&r=g","contentUrl":"https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&d=mm&r=g","caption":"Konuk Yazar"},"description":"Konuk yazarlar\u0131m\u0131z i\u00e7in olu\u015fturdu\u011fumuz profil.","url":"https://parlakjurnal.com/author/konuk-yazar/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//i0.wp.com' />
+<link rel='dns-prefetch' href='//i1.wp.com' />
+<link rel='dns-prefetch' href='//i2.wp.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Parlak Jurnal &raquo; beslemesi" href="https://parlakjurnal.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Parlak Jurnal &raquo; yorum beslemesi" href="https://parlakjurnal.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Parlak Jurnal &raquo; Koronavirüs ve İklim Değişikliği &#8211; Gavin A. Schmidt yorum beslemesi" href="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/feed/" />
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+
+
+
+<link rel='stylesheet' id='wi-fonts-css'  href='https://fonts.googleapis.com/css?family=Merriweather%3A400%7COswald%3A400&#038;display=swap' type='text/css' media='all' />
+
+<style id='style-inline-css' type='text/css'>
+.reading-progress-wrapper::-webkit-progress-value{background-color:}.reading-progress-wrapper::-moz-progress-value{background-color:}.header-search-wrapper .search-btn, .header-cart-icon, .hamburger-btn{font-size:28px}.wi-mainnav ul.menu > li:hover > a{color:#dd3333}.wi-mainnav ul.menu ul > li, .mega-sep{border-color:#dd3333}.footer-col-sep{border-color:#000000}.post-list-sep{border-style:none}.list-thumbnail{width:250px}table, td, th, .fox-input, input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea, textarea, select, .style--tag-block .fox-term-list a, .fox-slider-rich, .pagination-inner, .post-sep, .blog-related, .blog-related .line, .post-newspaper .related-area, .authorbox-simple, .post-nav-simple, #footer-widgets, #footer-bottom, .commentlist ul.children, .hero-half, .commentlist li + li > .comment-body, .classic-main-header-top .container, .related-heading, .comments-title, .comment-reply-title, .header-sticky-style-border .header-sticky-element.before-sticky, .widget_archive ul, .widget_nav_menu ul, .widget_meta ul, .widget_recent_entries ul, .widget_categories ul,
+    .widget_archive li, .widget_nav_menu li, .widget_meta li, .widget_recent_entries li, .widget_categories li, .offcanvas-search .s, .offcanvas-nav li + li > a, .hero-meta .header-main, .single-authorbox-section, .related-heading, .comments-title, .comment-reply-title, #posts-small-heading, .article-small, .article-tall, .toparea > .container{border-color:#000000}.widget-title{color:#ffffff;background-color:#000000;text-align:center}.wi-dropcap,.enable-dropcap .dropcap-content > p:first-of-type:first-letter, p.has-drop-cap:not(:focus):first-letter{font-weight:400}@media (min-width: 1200px) {.container,.cool-thumbnail-size-big .post-thumbnail{width:1100px}body.layout-boxed .wi-wrapper{width:1160px}}@media (min-width:1024px) {.secondary, .section-secondary{width:24.090909090909%}.has-sidebar .primary, .section-has-sidebar .section-primary, .section-sep{width:75.909090909091%}}body,.font-body,.post-item-meta,.post-item-subtitle,.single .entry-content,.page .entry-content,.fox-input,input[type="color"],input[type="date"],input[type="datetime"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"],input:not([type]),textarea,blockquote,.wi-dropcap,.enable-dropcap .dropcap-content > p:first-of-type:first-letter,p.has-drop-cap:not(:focus):first-letter,.wp-caption-text,.post-thumbnail-standard figcaption,.wp-block-image figcaption,.blocks-gallery-caption{font-family:"Merriweather",serif}.font-heading,h1,h2,h3,h4,h5,h6,.wp-block-quote.is-large cite,.wp-block-quote.is-style-large cite,.fox-btn,button,input[type="button"],input[type="reset"],input[type="submit"],.fox-term-list,.wp-block-cover-text,.title-label,.thumbnail-view,.standalone-categories,.readmore,a.more-link,.post-big a.more-link,.style--slider-navtext .flex-direction-nav a,.min-logo-text,.page-links-container,.authorbox-nav,.post-navigation .post-title,.review-criterion,.review-score,.review-text,.commentlist .fn,.reply a,.widget_archive,.widget_nav_menu,.widget_meta,.widget_recent_entries,.widget_categories,.widget_rss > ul a.rsswidget,.widget_rss > ul > li > cite,.widget_recent_comments,#backtotop,.view-count,.tagcloud,.fox-logo,.mobile-logo-text,.slogan,.wi-mainnav ul.menu > li > a,.footer-bottom .widget_nav_menu,#footernav,.offcanvas-nav,.wi-mainnav ul.menu ul,.header-builder .widget_nav_menu  ul.menu ul,.post-item-title,.archive-title,.post-item-title.post-title,.page-title,.single-heading,.widget-title,.section-heading h2,.article-big .readmore{font-family:"Oswald",sans-serif}body, .font-body{font-size:16px;font-weight:400;font-style:normal;text-transform:none;letter-spacing:0px;line-height:1.8}h1, h2, h3, h4, h5, h6{font-weight:700;text-transform:none;line-height:1.3}h2{font-size:2.0625em;font-style:normal}h3{font-size:1.625em;font-style:normal}h4{font-size:1.25em;font-style:normal}.fox-logo, .min-logo-text, .mobile-logo-text{font-size:60px;font-weight:400;font-style:normal;text-transform:uppercase;letter-spacing:0px;line-height:1.1}.slogan{font-size:0.8125em;font-weight:400;font-style:normal;text-transform:uppercase;letter-spacing:6px;line-height:1.1}.wi-mainnav ul.menu > li > a, .footer-bottom .widget_nav_menu, #footernav, .offcanvas-nav{font-size:24px;text-transform:none;letter-spacing:0px}.wi-mainnav ul.menu ul, .header-builder .widget_nav_menu  ul.menu ul{font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:2px}.post-item-title{font-style:normal}.post-item-meta{font-size:11px;text-transform:uppercase;letter-spacing:1.5px}.standalone-categories{font-style:normal}.archive-title{font-style:normal}.post-item-title.post-title, .page-title{font-style:normal}.post-item-subtitle{font-style:normal}.single .entry-content, .page .entry-content{font-style:normal}.single-heading{font-weight:300;text-transform:uppercase;letter-spacing:6px}.widget-title{font-size:12px;text-transform:uppercase;letter-spacing:8px}.section-heading h2{font-style:normal}.fox-btn, button, input[type="button"], input[type="reset"], input[type="submit"], .article-big .readmore{font-size:13px;text-transform:uppercase;letter-spacing:1px}.fox-input, input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea{font-style:normal}blockquote{font-style:normal}.wi-dropcap,.enable-dropcap .dropcap-content > p:first-of-type:first-letter, p.has-drop-cap:not(:focus):first-letter{font-style:normal}.wp-caption-text, .post-thumbnail-standard figcaption, .wp-block-image figcaption, .blocks-gallery-caption{font-style:normal}.offcanvas-nav{font-style:normal}@media only screen and (max-width: 1023px){.fox-logo, .min-logo-text, .mobile-logo-text{font-size:40px}}@media only screen and (max-width: 567px){body, .font-body{font-size:14px}.fox-logo, .min-logo-text, .mobile-logo-text{font-size:20px}}#footer-bottom{border-style:solid}.widget-title{margin-top:-15px;margin-bottom:16px;padding-top:4px;padding-right:0px;padding-bottom:4px;padding-left:0px}@media only screen and (max-width: 1023px){}@media only screen and (max-width: 567px){}#footer-bottom{background-color:#ffffff}
+</style>
+
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js' defer></script>
+<link rel="https://api.w.org/" href="https://parlakjurnal.com/wp-json/" /><link rel="alternate" type="application/json" href="https://parlakjurnal.com/wp-json/wp/v2/posts/10053" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://parlakjurnal.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://parlakjurnal.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8" />
+<link rel='shortlink' href='https://parlakjurnal.com/?p=10053' />
+
+<meta property="og:image" content="https://parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg"/>
+<meta property="og:image:secure_url" content="https://parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg" />
+
+    <link rel="icon" href="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/faviconparlakjurnal.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/faviconparlakjurnal.png?fit=64%2C64&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/faviconparlakjurnal.png?fit=64%2C64&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/faviconparlakjurnal.png?fit=64%2C64&#038;ssl=1" />
+
+<style id="color-preview"></style>
+
+        <noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=UA-85748955-1"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-85748955-1');
+</script>
+
+	
+</head>
+
+<body data-rsssl=1 class="post-template-default single single-post postid-10053 single-format-standard layout-wide style--dropcap-color dropcap-style-color style--dropcap-font-body style--tag-block style--blockquote-has-icon style--blockquote-icon-1 style--link-1 body-sticky-sidebar elementor-default elementor-kit-8991" itemscope itemtype="https://schema.org/WebPage">
+    
+        
+    <div id="wi-all" class="fox-outer-wrapper fox-all wi-all">
+
+        
+        <div id="wi-wrapper" class="fox-wrapper wi-wrapper">
+
+            <div class="wi-container">
+
+                
+                
+<header id="masthead" class="site-header header-classic header-sticky-style-shadow submenu-light" itemscope itemtype="https://schema.org/WPHeader">
+
+    
+<div class="header-container header-stack1 header-nav-bottom-1">
+
+
+    
+        
+        
+<div class="row-nav-light row-nav-style-active-1 header-classic-row header-row-nav header-row-flex main-header classic-main-header header-sticky-element">
+    
+    <div id="topbar-wrapper">
+        
+        <div id="wi-topbar" class="wi-topbar">
+        
+            <div class="container">
+                
+                <div class="header-row-left header-row-part">
+                    
+                    
+    <nav id="wi-mainnav" class="navigation-ele wi-mainnav" role="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+        
+        <div class="menu style-indicator-angle-down"><ul id="menu-ust-menu" class="menu"><li id="menu-item-982" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-982"><a href="https://parlakjurnal.com">Ana Sayfa</a></li>
+<li id="menu-item-1001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1001"><a href="#">Kategoriler</a>
+<ul class="sub-menu">
+	<li id="menu-item-1002" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1002"><a href="https://parlakjurnal.com/category/bilim/">Bilim</a></li>
+	<li id="menu-item-1012" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1012"><a href="https://parlakjurnal.com/category/tarih/">Tarih</a></li>
+	<li id="menu-item-1009" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1009"><a href="https://parlakjurnal.com/category/politika/">Politika</a></li>
+	<li id="menu-item-1512" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1512"><a href="https://parlakjurnal.com/category/makale/">Makale</a></li>
+	<li id="menu-item-1007" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1007"><a href="https://parlakjurnal.com/category/kitap-inceleme/">Kitap İnceleme</a></li>
+	<li id="menu-item-1004" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1004"><a href="https://parlakjurnal.com/category/elestiri/">Eleştiri</a></li>
+	<li id="menu-item-1492" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1492"><a href="https://parlakjurnal.com/category/deneme/">Deneme</a></li>
+	<li id="menu-item-1003" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1003"><a href="https://parlakjurnal.com/category/edebiyat/">Edebiyat</a></li>
+	<li id="menu-item-1010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1010"><a href="https://parlakjurnal.com/category/portre/">Portre</a></li>
+	<li id="menu-item-1011" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1011"><a href="https://parlakjurnal.com/category/spor/">Spor</a></li>
+	<li id="menu-item-1005" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1005"><a href="https://parlakjurnal.com/category/film/">Film</a></li>
+	<li id="menu-item-1493" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1493"><a href="https://parlakjurnal.com/category/sanat/">Sanat</a></li>
+	<li id="menu-item-8373" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8373"><a href="https://parlakjurnal.com/category/tiyatro/">Tiyatro Oyunları</a></li>
+	<li id="menu-item-1013" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1013"><a href="https://parlakjurnal.com/category/teknoloji/">Teknoloji</a></li>
+	<li id="menu-item-1008" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1008"><a href="https://parlakjurnal.com/category/mizah/">Mizah</a></li>
+	<li id="menu-item-2560" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2560"><a href="https://parlakjurnal.com/category/seyahat/">Seyahat</a></li>
+	<li id="menu-item-6146" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6146"><a href="https://parlakjurnal.com/category/ekonomi/">Ekonomi</a></li>
+	<li id="menu-item-2367" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2367"><a href="https://parlakjurnal.com/category/internet/">İnternet</a></li>
+	<li id="menu-item-3658" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3658"><a href="https://parlakjurnal.com/category/ceviri/">Çeviri</a></li>
+	<li id="menu-item-11022" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11022"><a href="https://parlakjurnal.com/category/oyun/">Oyun</a></li>
+	<li id="menu-item-4934" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4934"><a href="https://parlakjurnal.com/category/sponsor/">Sponsor</a></li>
+	<li id="menu-item-11023" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11023"><a href="https://parlakjurnal.com/category/tek-yazi-cok-fikir/">Tek Yazı Çok Fikir</a></li>
+	<li id="menu-item-1006" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1006"><a href="https://parlakjurnal.com/category/genel/">Genel</a></li>
+</ul>
+</li>
+<li id="menu-item-7338" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7338"><a href="https://parlakjurnal.com/projeler/">Projeler</a>
+<ul class="sub-menu">
+	<li id="menu-item-10768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10768"><a href="https://parlakjurnal.com/parlak-jurnal-ozel-elektronik-sayisi/">Parlak Jurnal Özel Elektronik Sayısı</a></li>
+	<li id="menu-item-7951" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7951"><a href="https://parlakjurnal.com/sosyal-sorumluluk-projesi/">Sosyal Sorumluluk Projesi</a></li>
+	<li id="menu-item-10808" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10808"><a href="https://parlakjurnal.com/category/tek-yazi-cok-fikir/">Tek Yazı; Çok Fikir Serisi</a></li>
+	<li id="menu-item-9594" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9594"><a href="https://parlakjurnal.com/koronavirus-dosyasi/">Koronavirüs Dosyası</a></li>
+	<li id="menu-item-9345" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-9345"><a href="https://parlakjurnal.com/evde-kal-turkiye-yazi-yarismasi/">Evde Kal Türkiye Yazı Yarışması</a></li>
+	<li id="menu-item-8296" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8296"><a href="https://parlakjurnal.com/bir-inceleme-yazisi-bir-kitap-hediyesi/">Bir İnceleme Yazısı = Bir Kitap Hediyesi</a></li>
+	<li id="menu-item-8371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8371"><a href="https://parlakjurnal.com/kitap-cekilisi/">Kitap Çekilişi</a></li>
+</ul>
+</li>
+<li id="menu-item-5685" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5685"><a href="https://parlakjurnal.com/yazarlar/">Yazarlar</a></li>
+<li id="menu-item-1497" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1497"><a href="#">Hakkımızda</a>
+<ul class="sub-menu">
+	<li id="menu-item-983" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="https://parlakjurnal.com/biz-kimiz/">Biz Kimiz?</a></li>
+	<li id="menu-item-11164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11164"><a href="https://parlakjurnal.com/yayinlarimiz/">Yayınlarımız</a></li>
+	<li id="menu-item-1663" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1663"><a href="https://parlakjurnal.com/destek-ol/">Destek Ol</a></li>
+	<li id="menu-item-3566" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3566"><a href="https://parlakjurnal.com/reklam/">Reklam</a></li>
+	<li id="menu-item-10769" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10769"><a href="https://parlakjurnal.com/gelirlerimiz-nereye-gidiyor/">Parlak Jurnal&#8217;in Gelirleri Nereye Gidiyor?</a></li>
+	<li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="https://parlakjurnal.com/iletisim/">İletişim</a></li>
+</ul>
+</li>
+<li id="menu-item-1727" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1727"><a href="https://parlakjurnal.com/yazi-gonder/">Yazı Gönder</a></li>
+</ul></div>        
+    </nav><!-- #wi-mainnav -->
+
+                    
+                </div>
+                
+                <div class="header-row-right header-row-part">
+                    
+                    
+<div class="social-list header-social style-plain shape-circle align-center icon-size-medium" id="social-id-60fe65dc1440a">
+    
+    <ul>
+    
+                
+        <li class="li-facebook">
+            <a href="https://www.facebook.com/parlakjurnal/" target="_blank" rel="alternate" title="Facebook">
+                <i class="fab fa-facebook-square"></i>
+                <span>Facebook</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-twitter">
+            <a href="https://twitter.com/JurnalParlak" target="_blank" rel="alternate" title="Twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-instagram">
+            <a href="https://www.instagram.com/parlakjurnal/" target="_blank" rel="alternate" title="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-youtube">
+            <a href="https://www.youtube.com/channel/UCJ2Fi8LFYW_vnVuJE_YemqQ" target="_blank" rel="alternate" title="YouTube">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+        </li>
+        
+            
+    </ul>
+    
+</div><!-- .social-list -->
+
+<div class="header-search-wrapper header-search-classic">
+    
+    <span class="search-btn-classic search-btn">
+        <i class="feather-search"></i>
+    </span>
+    
+    <div class="header-search-form header-search-form-template">
+        
+        <div class="container">
+    
+            <div class="searchform">
+    
+    <form role="search" method="get" action="https://parlakjurnal.com/" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction" class="form">
+        
+        <input type="text" name="s" class="s search-field" value="" placeholder="Yaz ve Ara" />
+        
+        <button class="submit" role="button" title="Go">
+            
+            <i class="feather-search"></i>
+            
+        </button>
+        
+    </form><!-- .form -->
+    
+</div><!-- .searchform -->            
+        </div><!-- .header-search-form -->
+    
+    </div><!-- #header-search -->
+    
+</div><!-- .header-search-wrapper -->
+
+                    
+                </div>
+
+            </div><!-- .container -->
+            
+        </div><!-- #wi-topbar -->
+        
+    </div><!-- #topbar-wrapper -->
+
+</div><!-- .header-row-nav -->
+    
+    
+<div class="header-classic-row header-row-branding classic-after-header align-center">
+
+    <div id="wi-header" class="wi-header">
+
+        <div class="container">
+
+            
+    <div id="logo-area" class="fox-logo-area fox-header-logo site-branding">
+        
+        <div id="wi-logo" class="fox-logo-container">
+            
+            <h2 class="wi-logo-main fox-logo logo-type-image" id="site-logo">                
+                <a href="https://parlakjurnal.com/" rel="home">
+                    
+                    <img width="567" height="137" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20567%20137'%3E%3C/svg%3E" class="main-img-logo" alt="Parlak Jurnal Blog" data-lazy-srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?w=567&amp;ssl=1 567w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?resize=300%2C72&amp;ssl=1 300w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?resize=480%2C116&amp;ssl=1 480w" data-lazy-sizes="(max-width: 567px) 100vw, 567px" data-lazy-src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?fit=567%2C137&amp;ssl=1" /><noscript><img width="567" height="137" src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?fit=567%2C137&amp;ssl=1" class="main-img-logo" alt="Parlak Jurnal Blog" srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?w=567&amp;ssl=1 567w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?resize=300%2C72&amp;ssl=1 300w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png?resize=480%2C116&amp;ssl=1 480w" sizes="(max-width: 567px) 100vw, 567px" /></noscript>                    
+                </a>
+                
+            </h2>
+        </div><!-- .fox-logo-container -->
+
+          
+    <h3 class="slogan site-description">Her Kafadan Bir Fikir</h3>
+    
+    </div><!-- #logo-area -->
+
+                
+            <aside id="header-area" class="widget-area" role="complementary" itemscope itemptype="https://schema.org/WPSideBar"></aside><!-- .widget-area -->            
+        </div><!-- .container -->
+
+    </div><!-- #wi-header -->
+
+</div><!-- .header-row-branding -->
+    
+        
+    
+        
+</div><!-- .header-container -->    
+</header><!-- #masthead -->
+                
+<div id="masthead-mobile" class="masthead-mobile">
+    
+    <div class="container">
+        
+        <div class="masthead-mobile-left masthead-mobile-part">
+            
+            
+    <a class="toggle-menu hamburger hamburger-btn">
+        <i class="feather-menu"></i>
+        <i class="feather-x"></i>
+    </a>
+
+            
+                        
+        </div><!-- .masthead-mobile-part -->
+    
+        
+<h4 id="mobile-logo" class="mobile-logo mobile-logo-image">
+    
+    <a href="https://parlakjurnal.com/" rel="home">
+
+        
+        <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Mobile Logo" data-lazy-src="https://parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png" /><noscript><img src="https://parlakjurnal.com/wp-content/uploads/2017/07/parlakjurnalheader.png" alt="Mobile Logo" /></noscript>
+
+        
+    </a>
+    
+</h4><!-- .mobile-logo -->
+
+            
+        <div class="masthead-mobile-right masthead-mobile-part">
+        
+                        
+        </div><!-- .masthead-mobile-part -->
+    
+    </div><!-- .container -->
+    
+    <div class="masthead-mobile-bg"></div>
+
+</div><!-- #masthead-mobile -->
+
+<div id="masthead-mobile-height"></div>
+    
+    
+                <div id="wi-main" class="wi-main fox-main">
+
+
+
+<article id="wi-content" class="wi-content wi-single single-style-1 padding-top-normal post-10053 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim category-ceviri tag-emisyon tag-iklim-degisikligi tag-koronavirus has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+    
+        
+    <div class="single-big-section single-big-section-content">
+        
+        <div class="container">
+
+            <div id="primary" class="primary content-area">
+
+                <div class="theiaStickySidebar">
+
+                    
+<div class="thumbnail-wrapper single-big-section-thumbnail single-section">
+    
+    <div class="thumbnail-container">
+        
+        <div class="container">
+            
+            <div class="thumbnail-main">
+                
+                <div class="thumbnail-stretch-area">
+
+                    <figure class="fox-figure post-thumbnail post-thumbnail-standard hover-none thumbnail-acute"  itemscope itemtype="https://schema.org/ImageObject"><span class="image-element thumbnail-inner"><img width="448" height="672" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20448%20672'%3E%3C/svg%3E" class="attachment-full size-full" alt="iklim değişikliği" data-lazy-srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?w=448&amp;ssl=1 448w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?resize=200%2C300&amp;ssl=1 200w" data-lazy-sizes="(max-width: 448px) 100vw, 448px" data-lazy-src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?fit=448%2C672&amp;ssl=1" /><noscript><img width="448" height="672" src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?fit=448%2C672&amp;ssl=1" class="attachment-full size-full" alt="iklim değişikliği" srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?w=448&amp;ssl=1 448w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/İklim-Değişikliği.jpg?resize=200%2C300&amp;ssl=1 200w" sizes="(max-width: 448px) 100vw, 448px" /></noscript></span></figure>                    
+                </div><!-- .thumbnail-stretch-area -->
+                
+            </div><!-- .thumbnail-main -->
+
+        </div><!-- .container -->
+        
+    </div><!-- .thumbnail-container -->
+    
+</div><!-- .thumbnail-wrapper -->
+
+                        <header class="single-header post-header entry-header single-section align-center single-header-template-1 post-header-bottom-2" itemscope itemtype="https://schema.org/WPHeader">
+    
+        <div class="container">
+            
+            <div class="header-main">
+
+                <div class="post-item-header"><div class="title-subtitle"><h1 class="post-title post-item-title">Koronavirüs ve İklim Değişikliği &#8211; Gavin A. Schmidt</h1></div>
+<div class="post-item-meta wi-meta fox-meta post-header-section ">
+    
+    <div class="fox-meta-author entry-author meta-author" itemprop="author" itemscope itemtype="https://schema.org/Person"><span class="byline"> Yazar: <span class="author vcard"><a class="url fn" itemprop="url" rel="author" href="https://parlakjurnal.com/author/konuk-yazar/"><span itemprop="name">Konuk Yazar</span></a></span></span></div>    <div class="entry-date meta-time machine-time time-short"><time class="published" itemprop="datePublished" datetime="2020-05-21T08:30:24+03:00">21 Mayıs 2020</time><time class="updated" itemprop="dateModified" datetime="2020-09-17T02:30:16+03:00">17 Eylül 2020</time></div>    
+    <div class="entry-categories meta-categories">
+
+        <a href="https://parlakjurnal.com/category/bilim/" rel="tag">Bilim</a><span class="sep">/</span><a href="https://parlakjurnal.com/category/ceviri/" rel="tag">Çeviri</a>
+    </div>
+
+                <a href="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#comments" class="comment-link" ><span class="comment-num">2</span> <span class="comment-icon"><i class="fa fa-comment-alt"></i></span></a>    
+</div>
+
+</div>                
+            </div><!-- .header-main -->
+
+        </div><!-- .container -->
+    
+    </header><!-- .single-header -->
+                        
+<div class="single-body single-section">
+    
+    <div class="single-section single-main-content enable-dropcap">
+        
+                
+        <div class="entry-container">
+            
+            <div class="content-main">
+            
+                
+                <div class="dropcap-content columnable-content entry-content single-component">
+
+                    <p>Hepimiz, güncel pandemi sebebiyle ortaya çıkan değişikliklerden sarsıldık. İnsanlar bu durum ile iklim sorunlarının arasındaki benzerliğe dikkat çekiyorlar.  Fakat analojiler (iki olay arasındaki benzerlik) yanıltıcı olabilir ve bazen bilgilendirici olduğu kadar çarpıtıcı da olabilir.</p>
+<p>Örneğin, Boston Globe&#8217;da Jeff Jacoby’nin yorumu pek anlaşılabilir değildi ve Mike Mann’ın sözlerini acımasızca yanlış aktarmıştı. Mike’ın buna karşı cevabı oldukça iyi oldu:</p>
+<p style="padding-left: 40px;">Kural koyucuların koronavirüse hak ettiği aciliyette davrandığını gördüğüm için rahatladım. Altta yatan daha büyük bir tehdit için de aynı şeyi yapmaları gerekiyor: insan kaynaklı <a href="https://parlakjurnal.com/yeryuzu-isinirken-bakteriler-iklim-degisikligine-daha-fazla-katkida-bulunabilir/">iklim değişikliği.</a></p>
+<p style="padding-left: 40px;">Jeff Jacoby, geçen köşesinde,<em> (“İklim alarmcılığına karşı şüpheliyim ama koronavirüs korkusunu ciddiye alıyorum.” Fikirler, 15 Mart)</em> uzun sürelerden beri bilim uzmanlarının bilgisini iklim konusunda reddetmesine rağmen koronavirüse dair uzmanların söylediklerini ciddiye almasını bir araya getirmeye çalışıyor.</p>
+<p style="padding-left: 40px;">Jacoby bunu yaparken, iklim tehdidini abartanlara karşı eleştirilerimi <em>“problemi çözümsüz olarak sunan ve kaderle, çaresizlikle, umutsuzlukla beslenmesi”</em> şeklinde yanlış tanımlayarak, sözlerimi konunun dışına çıkardı.</p>
+<p style="padding-left: 40px;">Önceki yorumlarımda belirttiğim gibi, iklim değişikliğinin tahrip edici etkilerine gelindiğinde, Amerika Birleşik Devletleri ve Avustralya da dahil olmak üzere şu anda dünya çapında ortaya çıkan benzeri görülmemiş seller, sıcak hava dalgaları, kuraklık ve orman yangınları dahil olmak üzere birçok şey meydana geliyor ve gerçekler yeteri kadar kötü.</p>
+<p style="padding-left: 40px;">İklim değişikliğinin, şu anda uğraşmamız gereken bir mevzu olduğunu gösteren deliller açıkça ortada. Fakat bu durumu aşırı bir şekilde abartmamıza gerek yok. Özellikle kader ve umutsuzluk söylemini güçlendiriyorsa buna hiç gerek yok.</p>
+<p style="padding-left: 40px;">Korkudan değil ama geleceğin hala ellerimizde olduğunu bilmenin kararlılığıyla, cesurca hareket edersek, en kötü sonuçları engelleyebiliriz. Bu duyarlılık, Jacoby’nin bu konudaki aşırı abartılmış ya da acil olmadığı düşüncesini pek desteklemiyor.</p>
+<p style="padding-left: 40px;">Koronavirüs eğrisini düzleştirmek için sadece günlerimiz varken, karbondioksit emisyon eğrisini düzleştirmek için yıllarımız vardı. Jacoby gibi insanlar sayesinde, üzgünüm ki hala iklim pandemisi içindeyiz.</p>
+<p style="padding-left: 40px;">Michael E. Mann</p>
+<p style="padding-left: 40px;">State College, Pa.</p>
+<p style="padding-left: 40px;">Yazar, Dünya Sistem Bilim Merkezi&#8217;nin direktörü olduğu Penn State Üniversitesi&#8217;nde profesördür.</p>
+<h2>Direkt Bağlantılar</h2>
+<p>Bazı doğrudan bağlantılar da var. Karantina ve seyahat sınırlandırmaları; kısa ömürlü hava kirleticilerinin emisyonları (NOx, SO2 vb.), su deşarjları ve karbondioksit üzerinde önemli etkiye sahip. Hava ve su kalitesi üzerindeki etkisi çoktan görülür durumda – belki de insanların temiz hava ve su hakkındaki değişen normallerini de eski haline getirebilir.<br />
+<iframe src="https://www.youtube.com/embed/ARpxtAKsORw" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<h2>İş Düzeni Bozuldu</h2>
+<p>Açıkça görülüyor ki, bundan sonra hiçbir şey eskisi gibi olmayacak. Yakın bir zamanda eski normları ve davranışları koronavirüs öncesi olarak adlandıracağız. Şimdiden, daha önce çekilmiş televizyon programlarını izlerken, el sıkışmalarını ve sarılmalarını görünce garip hissediyorum.</p>
+<p>Ancak, en kötü senaryoların gerçekleşmesi için, sonuca götüren faktörlerin bir kombinasyonu olması gerektiği açıktır. İyi ya da kötü şans ve akıllıca veya akılsızca kararlar, birlikte geleceği yaratırlar. Şans, virüsün potensini, kuluçka dönemini ve ölümcüllüğünü yönlendirir, ama toplumsal kararlar hazırlığı (veya eksikliğini), sağlık sistemi planlamasını veya kapasitesini (veya eksikliğini) ve hükümet tepkilerini (yeterli veya yeterli değil) belirler.</p>
+<p>İşin gerçeği, her potansiyel geleceğe yalnızca nedir (bilim) ve bu konuda ne yapabiliriz (politika) şeklinde ulaşmamız mümkündür. Bu durum pandemide olduğu gibi iklimde de aynıdır. Hiç kimsenin herhangi bir karar vermediği bir durumda olası bir gelecek gözükmemektedir.</p>
+<p><strong>Çeviri</strong></p>
+<p><strong>Yazar:</strong> Gavin A. Schmidt</p>
+<p><strong>Orijinal Metin:</strong> <a href="http://www.realclimate.org/index.php/archives/2020/03/coronavirus-and-climate/" target="_blank" rel="noopener noreferrer">RealClimate İnternet Sitesi</a> (20/03/2020)</p>
+<p><a href="https://www.youtube.com/watch?v=MRNeCzQ_dU4">İklim değişikliğinden bahsettiğimiz, canlı yayın kaydına buraya tıklayarak erişebilirsiniz.</a></p>
+
+                </div><!-- .entry-content -->
+
+                
+<div class="fox-ad responsive-ad ad-container fox-ad-after single-component ad-code">
+    
+    <div class="banner-inner">
+
+        <ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-format="fluid"
+     data-ad-layout="in-article"
+     data-ad-client="ca-pub-5782237904680063"
+     data-ad-slot="7903258956"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>        
+    </div><!-- .banner-inner -->
+    
+</div>
+<div class="single-component single-component-share">
+<div class="fox-share share-style-2b share-style-default  background-brand share-layout-stack">
+    
+        
+    <span class="share-label"><i class="fa fa-share-alt"></i>Paylaşın</span>
+    
+        
+    <ul>
+        
+                
+        <li class="li-share-facebook">
+            
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparlakjurnal.com%2Fkoronavirus-ve-iklim-degisikligi%2F" title="Facebook" class="share share-facebook">
+                
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+                
+            </a>
+            
+        </li>
+        
+                
+        <li class="li-share-twitter">
+            
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparlakjurnal.com%2Fkoronavirus-ve-iklim-degisikligi%2F&#038;text=Koronavir%C3%BCs+ve+%C4%B0klim+De%C4%9Fi%C5%9Fikli%C4%9Fi+%E2%80%93+Gavin+A.+Schmidt&#038;via=jurnalparlak" title="Twitter" class="share share-twitter">
+                
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+                
+            </a>
+            
+        </li>
+        
+                
+        <li class="li-share-linkedin">
+            
+            <a href="https://www.linkedin.com/shareArticle?mini=true&#038;url=https%3A%2F%2Fparlakjurnal.com%2Fkoronavirus-ve-iklim-degisikligi%2F&#038;title=Koronavir%C3%BCs+ve+%C4%B0klim+De%C4%9Fi%C5%9Fikli%C4%9Fi+%E2%80%93+Gavin+A.+Schmidt" title="Linkedin" class="share share-linkedin">
+                
+                <i class="fab fa-linkedin-in"></i>
+                <span>Linkedin</span>
+                
+            </a>
+            
+        </li>
+        
+                
+        <li class="li-share-whatsapp">
+            
+            <a href="https://api.whatsapp.com/send?phone=&#038;text=https%3A%2F%2Fparlakjurnal.com%2Fkoronavirus-ve-iklim-degisikligi%2F" title="Whatsapp" class="share share-whatsapp">
+                
+                <i class="fab fa-whatsapp"></i>
+                <span>Whatsapp</span>
+                
+            </a>
+            
+        </li>
+        
+                
+        <li class="li-share-email">
+            
+            <a href="mailto:?subject=Koronavir%C3%BCs%20ve%20%C4%B0klim%20De%C4%9Fi%C5%9Fikli%C4%9Fi%20%E2%80%93%20Gavin%20A.%20Schmidt&#038;body=https%3A%2F%2Fparlakjurnal.com%2Fkoronavirus-ve-iklim-degisikligi%2F" title="Email" class="email-share">
+                
+                <i class="feather-mail"></i>
+                <span>Email</span>
+                
+            </a>
+            
+        </li>
+        
+                
+    </ul>
+    
+</div><!-- .fox-share -->
+</div><div class="single-component single-component-tag single-component-tag">
+    
+    <div class="single-tags entry-tags post-tags">
+
+        <span class="single-heading tag-label">
+            <i class="feather-tag"></i>
+            Etiketler:        </span>
+        
+        <div class="fox-term-list">
+
+            <ul><li><a href="https://parlakjurnal.com/tag/emisyon/" rel="tag">emisyon</a></li><li><a href="https://parlakjurnal.com/tag/iklim-degisikligi/" rel="tag">iklim değişikliği</a></li><li><a href="https://parlakjurnal.com/tag/koronavirus/" rel="tag">Koronavirüs</a></li></ul>
+        </div><!-- .fox-term-list -->
+
+    </div><!-- .single-tags -->
+    
+</div>
+    
+<div class="single-related-wrapper single-component single-component-related">
+
+    <div class="fox-related-posts">
+        
+        <div class="container">
+
+            <h3 class="single-heading related-label related-heading">
+                <span>İlginizi Çekebilir</span>
+            </h3>
+
+            
+
+<div class="blog-container blog-container-grid">
+    
+    <div class="wi-blog fox-blog blog-grid fox-grid column-3 spacing-small">
+    
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-5713 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/erkek-gibi-kadin-derken-ciddi-olmayin-polikistik-over-sendromu/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="polikistik over sendromu" data-lazy-src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2018/06/Polikistik-Over-Sendromu-ve-kadında-kıllanma.jpg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2018/06/Polikistik-Over-Sendromu-ve-kadında-kıllanma.jpg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="polikistik over sendromu" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<div class="post-item-meta wi-meta fox-meta post-header-section ">
+    
+        <div class="entry-date meta-time machine-time time-short"><time class="published" itemprop="datePublished" datetime="2018-06-05T08:30:26+03:00">5 Haziran 2018</time><time class="updated" itemprop="dateModified" datetime="2018-06-05T02:01:23+03:00">5 Haziran 2018</time></div>                    
+</div>
+
+
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-small" itemprop="headline">
+    <a href="https://parlakjurnal.com/erkek-gibi-kadin-derken-ciddi-olmayin-polikistik-over-sendromu/" rel="bookmark">        
+        Erkek Gibi Kadın Derken Ciddi Olmayın: Polikistik Over Sendromu
+    </a>
+</h3></div>
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-12942 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim category-internet has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/nano-robotlar-nanoteknoloji-ve-kanser-tespiti-tedavisi/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="333" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20333'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="" data-lazy-src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2021/05/Nano-Robotlar-Nanoteknoloji-Ve-Kanser-TespitiTedavisi1.jpg?resize=480%2C333&amp;ssl=1" /><noscript><img width="480" height="333" src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2021/05/Nano-Robotlar-Nanoteknoloji-Ve-Kanser-TespitiTedavisi1.jpg?resize=480%2C333&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<div class="post-item-meta wi-meta fox-meta post-header-section ">
+    
+        <div class="entry-date meta-time machine-time time-short"><time class="published" itemprop="datePublished" datetime="2021-05-30T11:30:19+03:00">30 Mayıs 2021</time><time class="updated" itemprop="dateModified" datetime="2021-05-25T01:27:07+03:00">25 Mayıs 2021</time></div>                    
+</div>
+
+
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-small" itemprop="headline">
+    <a href="https://parlakjurnal.com/nano-robotlar-nanoteknoloji-ve-kanser-tespiti-tedavisi/" rel="bookmark">        
+        Nano Robotlar, Nanoteknoloji Ve Kanser Tespiti/Tedavisi
+    </a>
+</h3></div>
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-4383 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim category-ceviri has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/bagirsak-beyin-iliskisi-norobilimcileri-ele-geciriyor/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="bağırsak-beyin ilişkisi" data-lazy-srcset="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?resize=480%2C384&amp;ssl=1 480w, https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?zoom=2&amp;resize=480%2C384&amp;ssl=1 960w" data-lazy-sizes="(max-width: 480px) 100vw, 480px" data-lazy-src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="bağırsak-beyin ilişkisi" srcset="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?resize=480%2C384&amp;ssl=1 480w, https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2017/10/bağırsak-beyin-ilişkisi.jpg?zoom=2&amp;resize=480%2C384&amp;ssl=1 960w" sizes="(max-width: 480px) 100vw, 480px" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<div class="post-item-meta wi-meta fox-meta post-header-section ">
+    
+        <div class="entry-date meta-time machine-time time-short"><time class="published" itemprop="datePublished" datetime="2017-10-01T11:10:11+03:00">1 Ekim 2017</time><time class="updated" itemprop="dateModified" datetime="2017-10-01T21:20:09+03:00">1 Ekim 2017</time></div>                    
+</div>
+
+
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-small" itemprop="headline">
+    <a href="https://parlakjurnal.com/bagirsak-beyin-iliskisi-norobilimcileri-ele-geciriyor/" rel="bookmark">        
+        Bağırsak-Beyin İlişkisi Nörobilimcileri Ele Geçiriyor
+    </a>
+</h3></div>
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+            
+            
+    </div><!-- .fox-blog -->
+    
+        
+</div><!-- .fox-blog-container -->
+
+                
+        </div><!-- .container -->
+
+    </div><!-- .fox-related-posts -->
+    
+</div><!-- .single-component -->
+
+
+<div class="single-component single-component-authorbox">
+    
+    <div class="fox-authorbox authorbox-box has-tabs">
+    
+        <div class="authorbox-inner">
+
+                        <div class="user-item-avatar authorbox-avatar avatar-acute">
+
+                <a href="https://parlakjurnal.com/author/konuk-yazar/">
+
+                    <img alt='' src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2096%2096'%3E%3C/svg%3E" data-lazy-srcset='https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&#038;d=mm&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' data-lazy-src="https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&#038;d=mm&#038;r=g" /><noscript><img alt='' src='https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/550e28e0bc72a738664d976e9c69f449?s=96&#038;d=mm&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>
+                </a>
+
+            </div><!-- .user-item-avatar -->
+
+            <div class="authorbox-text">
+
+                
+                
+                <div class="authorbox-nav">
+
+                    <ul>
+
+                        <li class="active">
+                            <a class="authorbox-nav-author" data-tab="author">Konuk Yazar</a>
+                        </li><!-- .active -->
+                        <li>
+                            <a class="authorbox-nav-posts" data-tab="latest">Son Yazılar</a>
+                        </li>
+
+                    </ul>
+
+                </div><!-- .authorbox-nav -->
+
+                
+                
+                <div class="fox-user-item authorbox-tab active authorbox-content" data-tab="author">
+
+                    <div class="user-item-body">
+
+                        
+                        
+                        <div class="user-item-description">
+
+                            <p>Konuk yazarlarımız için oluşturduğumuz profil.</p>
+
+                        </div><!-- .user-item-description -->
+
+                        
+                        
+<div class="social-list user-item-social shape-circle style-plain">
+    
+    <ul>
+    
+                
+                
+    </ul>
+    
+</div><!-- .user-item-social -->
+
+
+                    </div><!-- .user-item-body -->
+
+                </div><!-- .fox-user-item -->
+
+                
+                    <div class="authorbox-tab same-author-posts fox-post-list" data-tab="latest">
+
+                        <ul class="same-author-list">
+
+                            
+                            <li>
+                                <a href="https://parlakjurnal.com/dinlerde-deccal-tasavvuru/">Dinlerde Deccal Tasavvuru</a>
+                            </li>
+
+                            
+                            <li>
+                                <a href="https://parlakjurnal.com/ya-sair-siir/">Ya Şair! - Şiir</a>
+                            </li>
+
+                            
+                            <li>
+                                <a href="https://parlakjurnal.com/kitapci/">Kitapçı</a>
+                            </li>
+
+                            
+                            <li>
+                                <a href="https://parlakjurnal.com/maskeli-genc/">Maskeli Genç</a>
+                            </li>
+
+                            
+                        </ul><!-- .same-author-list -->
+
+                        
+<div class="fox-button btn-inline">
+
+    <a target="_self" href="https://parlakjurnal.com/author/konuk-yazar/" class="fox-btn viewall btn-fill btn-small btn-square" id="button-id-60fe65dc28929"><span class="btn-main-text">Hepsini Görüntüle</span></a>
+    
+</div>
+
+
+                    </div><!-- .same-author-posts -->
+
+                    
+            </div><!-- .authorbox-text -->
+
+        </div><!-- .authorbox-inner -->
+
+    </div><!-- .fox-authorbox -->
+
+</div><!-- .single-authorbox-section -->
+    
+<div class="single-component single-component-comment">
+    
+    
+<div id="comments" class="comments-area single-section single-component">
+
+	
+	    
+    <h2 class="comments-title single-heading">
+        <span>
+			2 Comments		</span>
+    </h2><!-- .comments-title -->
+    
+    
+    <ol class="commentlist">
+        
+        		<li id="comment-5909" class="comment even thread-even depth-1">
+			<article id="div-comment-5909" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20120'%3E%3C/svg%3E" data-lazy-srcset='https://secure.gravatar.com/avatar/fd328708eceb54848101bec13c16da14?s=240&#038;d=mm&#038;r=g 2x' class='avatar avatar-120 photo' height='120' width='120' data-lazy-src="https://secure.gravatar.com/avatar/fd328708eceb54848101bec13c16da14?s=120&#038;d=mm&#038;r=g" /><noscript><img alt='' src='https://secure.gravatar.com/avatar/fd328708eceb54848101bec13c16da14?s=120&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/fd328708eceb54848101bec13c16da14?s=240&#038;d=mm&#038;r=g 2x' class='avatar avatar-120 photo' height='120' width='120' /></noscript>						<b class="fn">hk</b> <span class="says">dedi ki:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#comment-5909"><time datetime="2020-05-23T02:37:25+03:00">23 Mayıs 2020, 02:37</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Pandemi sürecinin   etkilerini gerçekten güzel, farklı ve mutlaka farkedilmesi gereken bir bakış açısıyla ele alan bir yazı  olmuş.insanlar olarak bu süreci kendi bakış açımıza göre yorumladık durduk.İhtiyacımız olan şeyin doğaya olan saygımızı gözden geçirmemiz gerektiğini, aynı ozon tabakası altında yaşayan milyonlarca tür olduğumuzun farkına varmanın ve bugün olduğu gibi bizi zor şartlarda yaşamaya itecek davranışlarımızı değiştirmek olduğunu düşünüyorum.</p>
+<p>&#8221;Koronavirüs eğrisini düzleştirmek için sadece günlerimiz varken, karbondioksit emisyon eğrisini düzleştirmek için yıllarımız vardı&#8221;</p>
+<p>Bu cümle çok hoşuma gitti ve şundanda kendi adıma eminimki koronavirüs eğrisinin düzelmesi için gereken günler yılları geçecektir ve bu da dolaylı olarak karbondioksit remisyonu eğrisini düzleştirmek için gereken etkiyi oluşturacaktır. Böyle bir temennim yok ama biz  insanlar  zorunda kalmadıkça bizim dışımızdaki hayatları önemsemiyoruz&#8230;<br />
+Teşekkürler &#8230;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-5909' data-commentid="5909" data-postid="10053" data-belowelement="div-comment-5909" data-respondelement="respond" data-replyto="Cevap hk" aria-label='Cevap hk'>Cevapla</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-6166" class="comment byuser comment-author-yasin odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-6166" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20120'%3E%3C/svg%3E" data-lazy-srcset='https://secure.gravatar.com/avatar/083abb820afb3b69c19dfa1f91a30dbd?s=240&#038;d=mm&#038;r=g 2x' class='avatar avatar-120 photo' height='120' width='120' data-lazy-src="https://secure.gravatar.com/avatar/083abb820afb3b69c19dfa1f91a30dbd?s=120&#038;d=mm&#038;r=g" /><noscript><img alt='' src='https://secure.gravatar.com/avatar/083abb820afb3b69c19dfa1f91a30dbd?s=120&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/083abb820afb3b69c19dfa1f91a30dbd?s=240&#038;d=mm&#038;r=g 2x' class='avatar avatar-120 photo' height='120' width='120' /></noscript>						<b class="fn">Yasin</b> <span class="says">dedi ki:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/#comment-6166"><time datetime="2020-08-10T19:19:03+03:00">10 Ağustos 2020, 19:19</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sonucunu merak ettiğim bir şey var. Acaba küresel ısınma konusuna ne zaman gereken önemi vereceğiz. Buzullar tamamen eriyip seller ve diğer doğal afetlerle boğuşurken mi? İçecek su bulamadığımızda mı?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-6166' data-commentid="6166" data-postid="10053" data-belowelement="div-comment-6166" data-respondelement="respond" data-replyto="Cevap Yasin" aria-label='Cevap Yasin'>Cevapla</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+        
+    </ol><!-- .commentlist -->
+    
+        
+    
+		
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title single-heading"><i class="feather-edit-2"></i>Yorum bırakın <small><a rel="nofollow" id="cancel-comment-reply-link" href="/koronavirus-ve-iklim-degisikligi/#respond" style="display:none;">Cevabı iptal et</a></small></h3><form action="https://parlakjurnal.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes">Your email address will not be published.</p><p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Düşüncelerinizi, fikirlerinizi ve eleştirilerinizi özgürce yazın..."></textarea></p><p class="comment-form-author"><input id="author" name="author" type="text" value="" size="30" placeholder="İsim" /></p>
+<p class="comment-form-email"><input id="email" name="email" type="email" value="" size="30" placeholder="E-posta adresi" /></p>
+<p class="comment-form-url"><input id="url" name="url" type="url" value="" size="30" placeholder="İnternet siteniz (varsa)" /></p>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Beni sonraki yorumlar için e-posta ile bilgilendir.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Beni yeni yazılarda e-posta ile bilgilendir.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Yorum gönder" /> <input type='hidden' name='comment_post_ID' value='10053' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="70dc26619c" /></p><input type="hidden" id="ak_js" name="ak_js" value="12"/><textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100" style="display: none !important;"></textarea></form>	</div><!-- #respond -->
+	
+</div><!-- #comments .comments-area -->
+</div><!-- .single-component-comment -->
+                    
+            </div>
+            
+        </div><!-- .container -->
+    
+    </div><!-- .single-section -->
+    
+    
+</div><!-- .single-body -->
+
+
+                </div><!-- .theiaStickySidebar -->
+
+            </div><!-- #primary -->
+
+            <aside id="secondary" class="secondary" role="complementary" itemscope itemptype="https://schema.org/WPSideBar">
+    
+    <div class="theiaStickySidebar">
+
+        <div class="widget-area">
+
+            <div id="blog_subscription-5" class="widget widget_blog_subscription jetpack_subscription_widget"><h3 class="widget-title"><span>Abone ol</span></h3>
+            <form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-5">
+				                    <div id="subscribe-text"><p>Parlak Jurnal'e abone olarak yazılarımızdan ve etkinliklerimizden anında haberdar olabilirsiniz. Siz de aramıza katılın :)</p>
+</div>					<div class="jetpack-subscribe-count">
+						<p>
+						Diğer 863 aboneye katılın						</p>
+					</div>
+					                    <p id="subscribe-email">
+                        <label id="jetpack-subscribe-label"
+                               class="screen-reader-text"
+                               for="subscribe-field-blog_subscription-5">
+							E-posta Adresi                        </label>
+                        <input type="email" name="email" required="required"
+                        			                                                value=""
+                            id="subscribe-field-blog_subscription-5"
+                            placeholder="E-posta Adresi"
+                        />
+                    </p>
+
+					<p id="subscribe-submit"
+											>
+                        <input type="hidden" name="action" value="subscribe"/>
+                        <input type="hidden" name="source" value="https://parlakjurnal.com/koronavirus-ve-iklim-degisikligi/"/>
+                        <input type="hidden" name="sub-type" value="widget"/>
+                        <input type="hidden" name="redirect_fragment" value="blog_subscription-5"/>
+						                        <button type="submit"
+	                        		                    	                        name="jetpack_subscriptions_widget"
+	                    >
+	                        Abone ol                        </button>
+                    </p>
+				            </form>
+		
+</div><div id="custom_html-2" class="widget_text widget widget_custom_html"><h3 class="widget-title"><span>Etkinliklerimiz</span></h3><div class="textwidget custom-html-widget"><a href="https://parlakjurnal.com/sosyal-sorumluluk-projesi/" rel="noopener"><img class="aligncenter wp-image-6843 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-recalc-dims="1" data-lazy-src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2019/08/Sosyal-Sorumluluk-Projesi.jpg?w=1100&#038;ssl=1"/><noscript><img class="aligncenter wp-image-6843 size-full" src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2019/08/Sosyal-Sorumluluk-Projesi.jpg?w=1100&#038;ssl=1" alt="" data-recalc-dims="1"/></noscript></a>
+
+<a href="https://parlakjurnal.com/parlak-jurnal-ozel-elektronik-sayisi/" target="_blank" rel="noopener"><img class="aligncenter wp-image-6843 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-recalc-dims="1" data-lazy-src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2020/07/özel-elektronik-sayımız-çıktı.png?w=1100&#038;ssl=1"/><noscript><img class="aligncenter wp-image-6843 size-full" src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2020/07/özel-elektronik-sayımız-çıktı.png?w=1100&#038;ssl=1" alt="" data-recalc-dims="1"/></noscript></a></div></div><div id="text-5" class="widget widget_text"><h3 class="widget-title"><span>Destek Olabilirsiniz</span></h3>			<div class="textwidget"><p><!-- asıl asıl sticky --><br />
+<ins class="adsbygoogle" style="display: inline-block; width: 250px; height: 250px;" data-ad-client="ca-pub-5782237904680063" data-ad-slot="6679888185"></ins><br />
+<script type="rocketlazyloadscript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+		</div>
+            <div class="gutter-sidebar"></div>
+            
+        </div><!-- .widget-area -->
+        
+    </div><!-- .theiaStickySidebar -->
+
+</aside><!-- #secondary -->
+        </div><!-- .container -->
+        
+    </div>
+    
+    
+<div class="single-big-section single-bottom-section single-bottom-posts-section">
+    
+    <div class="fox-bottom-posts">
+    
+        <div class="container">
+
+            <h3 id="posts-small-heading" class="bottom-posts-heading single-heading">
+
+                <span>Bilim Kategorisinde Son Yazılar</span>
+
+            </h3>
+
+            
+
+<div class="blog-container blog-container-grid">
+    
+    <div class="wi-blog fox-blog blog-grid fox-grid column-5 spacing-small">
+    
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-5084 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim category-elestiri tag-estetik-ameliyati tag-estetik-kaygisi has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/estetik-ameliyati-kaygisi-uzerine/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="estetik kaygısı" data-lazy-srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?resize=480%2C384&amp;ssl=1 480w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?zoom=2&amp;resize=480%2C384&amp;ssl=1 960w" data-lazy-sizes="(max-width: 480px) 100vw, 480px" data-lazy-src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="estetik kaygısı" srcset="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?resize=480%2C384&amp;ssl=1 480w, https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2018/02/Estetik-Ameliyatı-Kaygısı-Üzerine.jpg?zoom=2&amp;resize=480%2C384&amp;ssl=1 960w" sizes="(max-width: 480px) 100vw, 480px" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-tiny" itemprop="headline">
+    <a href="https://parlakjurnal.com/estetik-ameliyati-kaygisi-uzerine/" rel="bookmark">        
+        Estetik Ameliyatı Kaygısı Üzerine Bir Eleştiri
+    </a>
+</h3></div><div class="post-item-excerpt entry-excerpt excerpt-size-small" itemprop="text">
+    
+    <p>Türkiye’de her yıl 50.000 kadar estetik ameliyat yapılıyor. Bu da demektir ki her 1600 kişiden biri</p>
+    
+</div>
+    
+
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-10147 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/ozet-patolojiler-3-tutun-ve-sigara/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="tütün yaprağı" data-lazy-src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/tütün-yaprağı.jpeg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i0.wp.com/parlakjurnal.com/wp-content/uploads/2020/05/tütün-yaprağı.jpeg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="tütün yaprağı" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-tiny" itemprop="headline">
+    <a href="https://parlakjurnal.com/ozet-patolojiler-3-tutun-ve-sigara/" rel="bookmark">        
+        Özet Patolojiler 3 &#8211; Tütün ve Sigara (Tütün Ürünleri)
+    </a>
+</h3></div><div class="post-item-excerpt entry-excerpt excerpt-size-small" itemprop="text">
+    
+    <p>Tütün insanda kanser oluşumu için bilinen en önemli önlenebilir nedendir. Temel risk faktörü sigara içimi olsa</p>
+    
+</div>
+    
+
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-8896 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/roportaj-cocuk-felci-hastalari-asi-hayat-kurtarir/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="çocuk felci" data-lazy-src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2020/02/çocuk-felçi.jpg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2020/02/çocuk-felçi.jpg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="çocuk felci" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-tiny" itemprop="headline">
+    <a href="https://parlakjurnal.com/roportaj-cocuk-felci-hastalari-asi-hayat-kurtarir/" rel="bookmark">        
+        Röportaj: Çocuk Felci Hastaları &#8211; Aşı Hayat Kurtarır
+    </a>
+</h3></div><div class="post-item-excerpt entry-excerpt excerpt-size-small" itemprop="text">
+    
+    <p>1. Çocuk Felci Aşıyla Engellenebilen Ciddi Bir Hastalıktır! Henüz COVID-19 pandemisi başlamamışken annemin memleketi olan Denizli</p>
+    
+</div>
+    
+
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-5781 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/timokinon-corek-otundaki-kusursuz-bilesik/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="timokinon" data-lazy-src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2018/06/timokinon-ve-çörek-otu-bitkisi.jpg?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i1.wp.com/parlakjurnal.com/wp-content/uploads/2018/06/timokinon-ve-çörek-otu-bitkisi.jpg?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="timokinon" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-tiny" itemprop="headline">
+    <a href="https://parlakjurnal.com/timokinon-corek-otundaki-kusursuz-bilesik/" rel="bookmark">        
+        Timokinon; Çörek Otundaki Kusursuz Bileşik
+    </a>
+</h3></div><div class="post-item-excerpt entry-excerpt excerpt-size-small" itemprop="text">
+    
+    <p>Bitkiler ilk insan var olduğundan beri hep hastalıkların tedavisi için mükemmel bir kaynak teşkil etmiştir. Teknolojinin</p>
+    
+</div>
+    
+
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+        
+    <article class="wi-post post-item post-grid fox-grid-item post-align-left post-572 post type-post status-publish format-standard has-post-thumbnail hentry category-bilim tag-grip tag-grip-tedavisi tag-influenza tag-influenza-asisi tag-influenza-ilaci tag-influenza-nedir tag-ispanyol-pandemisi has-sidebar sidebar-right" itemscope itemtype="https://schema.org/CreativeWork">
+        
+            
+        <div class="post-item-inner grid-inner post-grid-inner">
+            
+                
+<figure class="wi-thumbnail fox-thumbnail post-item-thumbnail fox-figure  thumbnail-acute  hover-none" itemscope itemtype="https://schema.org/ImageObject">
+    
+    <div class="thumbnail-inner">
+    
+                
+        <a href="https://parlakjurnal.com/influenza-influenzasi-kardesimgrip-bey/" class="post-link">
+            
+        
+            <span class="image-element">
+
+                <img width="480" height="384" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20384'%3E%3C/svg%3E" class="attachment-thumbnail-medium size-thumbnail-medium" alt="" data-lazy-src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2016/11/influenzagrip.gif?resize=480%2C384&amp;ssl=1" /><noscript><img width="480" height="384" src="https://i2.wp.com/parlakjurnal.com/wp-content/uploads/2016/11/influenzagrip.gif?resize=480%2C384&amp;ssl=1" class="attachment-thumbnail-medium size-thumbnail-medium" alt="" /></noscript>
+            </span><!-- .image-element -->
+
+            
+            
+                    
+        </a>
+        
+                
+    </div><!-- .thumbnail-inner -->
+
+</figure><!-- .fox-thumbnail -->
+
+
+            <div class="post-body post-item-body grid-body post-grid-body">
+
+                <div class="post-item-header">
+<h3 class="post-item-title wi-post-title fox-post-title post-header-section size-tiny" itemprop="headline">
+    <a href="https://parlakjurnal.com/influenza-influenzasi-kardesimgrip-bey/" rel="bookmark">        
+        İnfluenza: Ne İnfluenzası Kardeşim, Grip Bey Diyeceksiniz !
+    </a>
+</h3></div><div class="post-item-excerpt entry-excerpt excerpt-size-small" itemprop="text">
+    
+    <p>İçindekiler: 1. Grip Beyefendiler Kimdir? 2. Neden Grip Bey Dedim? 3. Bir Pandemi Örneği: İspanyol Gribi</p>
+    
+</div>
+    
+
+            </div><!-- .post-item-body -->
+
+        </div><!-- .post-item-inner -->
+
+    </article><!-- .post-item -->
+
+            
+            
+    </div><!-- .fox-blog -->
+    
+        
+</div><!-- .fox-blog-container -->
+
+    
+        </div><!-- .container -->
+
+    </div><!-- .fox-bottom-posts -->
+
+</div><!-- .single-bottom-posts-section -->
+        
+</article><!-- .post -->
+
+
+
+            </div><!-- #wi-main -->
+
+            
+<footer id="wi-footer" class="site-footer" itemscope itemtype="https://schema.org/WPFooter">
+    
+        
+<div id="footer-bottom" role="contentinfo" class="footer-bottom stretch-content skin-light">
+
+    <div class="container">
+        
+                        
+        <div class="classic-footer-bottom">
+        
+            
+            
+<div class="social-list footer-social-list footer-bottom-element style-black shape-circle align-center icon-size-normal" id="social-id-60fe65dc47f1f">
+    
+    <ul>
+    
+                
+        <li class="li-facebook">
+            <a href="https://www.facebook.com/parlakjurnal/" target="_blank" rel="alternate" title="Facebook">
+                <i class="fab fa-facebook-square"></i>
+                <span>Facebook</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-twitter">
+            <a href="https://twitter.com/JurnalParlak" target="_blank" rel="alternate" title="Twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-instagram">
+            <a href="https://www.instagram.com/parlakjurnal/" target="_blank" rel="alternate" title="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-youtube">
+            <a href="https://www.youtube.com/channel/UCJ2Fi8LFYW_vnVuJE_YemqQ" target="_blank" rel="alternate" title="YouTube">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+        </li>
+        
+            
+    </ul>
+    
+</div><!-- .social-list -->
+
+            
+            
+<div class="footer-copyright copyright footer-bottom-element">
+
+    <p>İnternet sitemizdeki yazı ve fotoğraflar kaynak gösterilerek alıntı yapılabilir. Telifle ilgili bir problem keşfettiğinizde bizimle iletişime geçiniz. Parlak Jurnal aynı zamanda bir <a href="https://parlakjurnal.com/sosyal-sorumluluk-projesi/">sosyal sorumluluk projesidir.</a><br /><a title="blog" href="https://parlakjurnal.com">Parlak Jurnal</a> İnternet Dergisi © 2016-2021</p>
+    
+</div><!-- .footer-copyright -->
+
+
+            
+    <nav id="footernav" class="footernav footer-bottom-element" role="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+        
+        <div class="menu"><ul id="menu-alt-menu" class="menu"><li id="menu-item-3481" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-3481"><a href="https://parlakjurnal.com">Ana Sayfa</a></li>
+<li id="menu-item-7982" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7982"><a href="https://parlakjurnal.com/sosyal-sorumluluk-projesi/">Sosyal Sorumluluk Projesi</a></li>
+<li id="menu-item-3513" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3513"><a href="https://parlakjurnal.com/gizlilik-politikasi-privacy-policy/">Gizlilik Politikası</a></li>
+<li id="menu-item-3514" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3514"><a href="https://parlakjurnal.com/kullanim-sartlari-terms-of-use/">Kullanım Şartları</a></li>
+<li id="menu-item-10073" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10073"><a href="https://parlakjurnal.com/reklam/">Reklam</a></li>
+<li id="menu-item-3515" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3515"><a href="https://parlakjurnal.com/iletisim/">İletişim</a></li>
+</ul></div>        
+    </nav><!-- #footernav -->
+
+                
+        </div><!-- .classic-footer-bottom -->
+        
+        
+    </div><!-- .container -->
+
+</div><!-- #footer-bottom -->
+</footer><!-- #wi-footer -->
+        </div><!-- .wi-container -->
+
+        <div class="wrapper-bg-element"></div>
+
+    </div><!-- #wi-wrapper -->
+
+</div><!-- #wi-all -->
+
+
+<div id="offcanvas" class="offcanvas offcanvas-light">
+
+    <div class="offcanvas-inner">
+        
+                
+                        
+        <div class="offcanvas-search offcanvas-element">
+            <div class="searchform">
+    
+    <form role="search" method="get" action="https://parlakjurnal.com/" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction" class="form">
+        
+        <input type="text" name="s" class="s search-field" value="" placeholder="Yaz ve Ara" />
+        
+        <button class="submit" role="button" title="Go">
+            
+            <i class="feather-search"></i>
+            
+        </button>
+        
+    </form><!-- .form -->
+    
+</div><!-- .searchform -->        </div>
+        
+                
+                
+                <nav id="mobilenav" class="offcanvas-nav offcanvas-element">
+
+            <div class="menu"><ul id="menu-ust-menu-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-982"><a href="https://parlakjurnal.com">Ana Sayfa</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1001"><a href="#">Kategoriler</a><span class="indicator"><i class="indicator-ic"></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1002"><a href="https://parlakjurnal.com/category/bilim/">Bilim</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1012"><a href="https://parlakjurnal.com/category/tarih/">Tarih</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1009"><a href="https://parlakjurnal.com/category/politika/">Politika</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1512"><a href="https://parlakjurnal.com/category/makale/">Makale</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1007"><a href="https://parlakjurnal.com/category/kitap-inceleme/">Kitap İnceleme</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1004"><a href="https://parlakjurnal.com/category/elestiri/">Eleştiri</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1492"><a href="https://parlakjurnal.com/category/deneme/">Deneme</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1003"><a href="https://parlakjurnal.com/category/edebiyat/">Edebiyat</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1010"><a href="https://parlakjurnal.com/category/portre/">Portre</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1011"><a href="https://parlakjurnal.com/category/spor/">Spor</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1005"><a href="https://parlakjurnal.com/category/film/">Film</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1493"><a href="https://parlakjurnal.com/category/sanat/">Sanat</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8373"><a href="https://parlakjurnal.com/category/tiyatro/">Tiyatro Oyunları</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1013"><a href="https://parlakjurnal.com/category/teknoloji/">Teknoloji</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1008"><a href="https://parlakjurnal.com/category/mizah/">Mizah</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2560"><a href="https://parlakjurnal.com/category/seyahat/">Seyahat</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6146"><a href="https://parlakjurnal.com/category/ekonomi/">Ekonomi</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2367"><a href="https://parlakjurnal.com/category/internet/">İnternet</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3658"><a href="https://parlakjurnal.com/category/ceviri/">Çeviri</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11022"><a href="https://parlakjurnal.com/category/oyun/">Oyun</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4934"><a href="https://parlakjurnal.com/category/sponsor/">Sponsor</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11023"><a href="https://parlakjurnal.com/category/tek-yazi-cok-fikir/">Tek Yazı Çok Fikir</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1006"><a href="https://parlakjurnal.com/category/genel/">Genel</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7338"><a href="https://parlakjurnal.com/projeler/">Projeler</a><span class="indicator"><i class="indicator-ic"></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10768"><a href="https://parlakjurnal.com/parlak-jurnal-ozel-elektronik-sayisi/">Parlak Jurnal Özel Elektronik Sayısı</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7951"><a href="https://parlakjurnal.com/sosyal-sorumluluk-projesi/">Sosyal Sorumluluk Projesi</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10808"><a href="https://parlakjurnal.com/category/tek-yazi-cok-fikir/">Tek Yazı; Çok Fikir Serisi</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9594"><a href="https://parlakjurnal.com/koronavirus-dosyasi/">Koronavirüs Dosyası</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-9345"><a href="https://parlakjurnal.com/evde-kal-turkiye-yazi-yarismasi/">Evde Kal Türkiye Yazı Yarışması</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8296"><a href="https://parlakjurnal.com/bir-inceleme-yazisi-bir-kitap-hediyesi/">Bir İnceleme Yazısı = Bir Kitap Hediyesi</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8371"><a href="https://parlakjurnal.com/kitap-cekilisi/">Kitap Çekilişi</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5685"><a href="https://parlakjurnal.com/yazarlar/">Yazarlar</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1497"><a href="#">Hakkımızda</a><span class="indicator"><i class="indicator-ic"></i></span>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="https://parlakjurnal.com/biz-kimiz/">Biz Kimiz?</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11164"><a href="https://parlakjurnal.com/yayinlarimiz/">Yayınlarımız</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1663"><a href="https://parlakjurnal.com/destek-ol/">Destek Ol</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3566"><a href="https://parlakjurnal.com/reklam/">Reklam</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10769"><a href="https://parlakjurnal.com/gelirlerimiz-nereye-gidiyor/">Parlak Jurnal&#8217;in Gelirleri Nereye Gidiyor?</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="https://parlakjurnal.com/iletisim/">İletişim</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1727"><a href="https://parlakjurnal.com/yazi-gonder/">Yazı Gönder</a><span class="indicator"><i class="indicator-ic"></i></span></li>
+</ul></div>
+        </nav><!-- #mobilenav -->
+                
+                        
+        
+<div class="social-list offcanvas-element style-plain shape-circle align-left icon-size-bigger" id="social-id-60fe65dc57395">
+    
+    <ul>
+    
+                
+        <li class="li-facebook">
+            <a href="https://www.facebook.com/parlakjurnal/" target="_blank" rel="alternate" title="Facebook">
+                <i class="fab fa-facebook-square"></i>
+                <span>Facebook</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-twitter">
+            <a href="https://twitter.com/JurnalParlak" target="_blank" rel="alternate" title="Twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-instagram">
+            <a href="https://www.instagram.com/parlakjurnal/" target="_blank" rel="alternate" title="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </li>
+        
+                
+        <li class="li-youtube">
+            <a href="https://www.youtube.com/channel/UCJ2Fi8LFYW_vnVuJE_YemqQ" target="_blank" rel="alternate" title="YouTube">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+        </li>
+        
+            
+    </ul>
+    
+</div><!-- .social-list -->
+        
+                
+            
+    </div><!-- .offcanvas-inner -->
+
+</div><!-- #offcanvas -->
+
+<div id="offcanvas-bg" class="offcanvas-bg"></div>
+<div class="offcanvas-overlay" id="offcanvas-overlay"></div>
+
+    <div id="backtotop" class="backtotop fox-backtotop scrollup backtotop-circle backtotop-icon">
+        
+        <span class="btt-icon"><i class="feather-arrow-up"></i></span>        
+    </div><!-- #backtotop -->
+
+
+<progress value="0" class="reading-progress-wrapper position-top">
+    
+    <div class="progress-container">
+        <span class="reading-progress-bar"></span>
+    </div>
+    
+</progress>
+
+    <script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-content/cache/min/1/wp-content/plugins/fox-framework/js/fox-elementor.js?ver=1627127293' id='fox-elementor-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-content/plugins/jetpack/_inc/build/photon/photon.min.js?ver=20191001' id='jetpack-photon-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.7' id='regenerator-runtime-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/parlakjurnal.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1627127293' id='contact-form-7-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/parlak-yazar-giris\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/parlakjurnal.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/comment-reply.min.js?ver=5.8' id='comment-reply-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='mediaelement-core-js-before'>
+var mejsL10n = {"language":"tr","strings":{"mejs.download-file":"Dosyay\u0131 indir","mejs.install-flash":"Flash oynat\u0131c\u0131 etkinle\u015ftirilmemi\u015f ya da kurulmam\u0131\u015f bir taray\u0131c\u0131 kullanmaktas\u0131n\u0131z. L\u00fctfen Flash oynat\u0131c\u0131 eklentinizi a\u00e7\u0131n ya da son s\u00fcr\u00fcm\u00fc https:\/\/get.adobe.com\/flashplayer\/ adresinden indirin","mejs.fullscreen":"Tam ekran","mejs.play":"Oynat","mejs.pause":"Durdur","mejs.time-slider":"Zaman kayd\u0131rac\u0131","mejs.time-help-text":"Sol\/sa\u011f tu\u015falr\u0131 ile bir saniye, yukar\u0131\/a\u015fa\u011f\u0131 tu\u015flar\u0131 ile 10 saniye ilerletin.","mejs.live-broadcast":"Canl\u0131 yay\u0131n","mejs.volume-help-text":"Yukar\u0131\/a\u015fa\u011f\u0131 tu\u015flar\u0131 ile sesi art\u0131r\u0131n ya da azalt\u0131n.","mejs.unmute":"Sesi geri a\u00e7","mejs.mute":"Sessiz","mejs.volume-slider":"Ses  kayd\u0131rac\u0131","mejs.video-player":"Video oynat\u0131c\u0131","mejs.audio-player":"Ses oynat\u0131c\u0131","mejs.captions-subtitles":"Ba\u015fl\u0131klar\/altyaz\u0131lar","mejs.captions-chapters":"B\u00f6l\u00fcmler","mejs.none":"Hi\u00e7biri","mejs.afrikaans":"Afrikanca","mejs.albanian":"Arnavut\u00e7a","mejs.arabic":"Arap\u00e7a","mejs.belarusian":"Beyaz Rus\u00e7a","mejs.bulgarian":"Bulgarca","mejs.catalan":"Katalanca","mejs.chinese":"\u00c7ince","mejs.chinese-simplified":"\u00c7ince (Basitle\u015ftirilmi\u015f)","mejs.chinese-traditional":"\u00c7ince (Geleneksel)","mejs.croatian":"H\u0131rvat\u00e7a","mejs.czech":"\u00c7ek\u00e7e","mejs.danish":"Danca","mejs.dutch":"Hollandal\u0131","mejs.english":"\u0130ngilizce","mejs.estonian":"Estonyaca","mejs.filipino":"Filipince","mejs.finnish":"Fince","mejs.french":"Frans\u0131z","mejs.galician":"Gali\u00e7yaca","mejs.german":"Almanca","mejs.greek":"Yunanca","mejs.haitian-creole":"Haiti kreyolu","mejs.hebrew":"\u0130branice","mejs.hindi":"Hint\u00e7e","mejs.hungarian":"Macarca","mejs.icelandic":"\u0130zlandaca","mejs.indonesian":"Endonezyaca","mejs.irish":"\u0130rlandaca","mejs.italian":"\u0130talyanca","mejs.japanese":"Japonca","mejs.korean":"Korece","mejs.latvian":"Letonca","mejs.lithuanian":"Litvanca","mejs.macedonian":"Makedonyaca","mejs.malay":"Malayaca","mejs.maltese":"Malta Dili","mejs.norwegian":"Norve\u00e7ce","mejs.persian":"Fars\u00e7a","mejs.polish":"Leh\u00e7e","mejs.portuguese":"Portekizce","mejs.romanian":"Romence","mejs.russian":"Rus\u00e7a","mejs.serbian":"S\u0131rp\u00e7a","mejs.slovak":"Slovak\u00e7a","mejs.slovenian":"Sloven Dili","mejs.spanish":"\u0130spanyolca","mejs.swahili":"Svahili Dili","mejs.swedish":"\u0130sve\u00e7\u00e7e","mejs.tagalog":"Tagalogca","mejs.thai":"Tay Dili","mejs.turkish":"T\u00fcrk\u00e7e","mejs.ukrainian":"Ukraynaca","mejs.vietnamese":"Vietnamca","mejs.welsh":"Galler Dili","mejs.yiddish":"Eskenazi Dili"}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/mediaelement/mediaelement-and-player.min.js?ver=4.2.16' id='mediaelement-core-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/mediaelement/mediaelement-migrate.min.js?ver=5.8' id='mediaelement-migrate-js' defer></script>
+<script type='text/javascript' id='mediaelement-js-extra'>
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-includes/js/mediaelement/wp-mediaelement.min.js?ver=5.8' id='wp-mediaelement-js' defer></script>
+<script type='text/javascript' id='wi-main-js-extra'>
+/* <![CDATA[ */
+var WITHEMES = {"l10n":{"prev":"\u00d6nceki","next":"Sonraki"},"enable_sticky_sidebar":"1","enable_sticky_header":"","ajaxurl":"https:\/\/parlakjurnal.com\/wp-admin\/admin-ajax.php","nonce":"2d488a67d7","resturl_v2":"https:\/\/parlakjurnal.com\/wp-json\/wp\/v2\/","resturl_v2_posts":"https:\/\/parlakjurnal.com\/wp-json\/wp\/v2\/posts\/","tablet_breakpoint":"840"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-content/themes/fox/js/theme.min.js?ver=4.4.3.1' id='wi-main-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" defer data-rocket-type='text/javascript' src='https://parlakjurnal.com/wp-content/cache/min/1/wp-content/plugins/akismet/_inc/form.js?ver=1627127297' id='akismet-form-js'></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://parlakjurnal.com/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script><script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+//<![CDATA[
+var la=!1;window.addEventListener("scroll",function(){(0!=document.documentElement.scrollTop&&!1===la||0!=document.body.scrollTop&&!1===la)&&(!function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(e,a)}(),la=!0)},!0);
+//]]>
+</script>
+</body>
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1627284956 -->

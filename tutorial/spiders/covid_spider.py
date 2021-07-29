@@ -4,14 +4,14 @@ from scrapy import signals
 from newspaper import Article
 from scrapy.linkextractors import LinkExtractor
 import os
+import json
 
 title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
                       'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı', 'vaka',
                       'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı',
                       'test', 'pozitif', 'negatif', 'izolasyon', 'sokağa çıkma yasağı',
-                      'bilim kurulu','who', 'dsö', 'dünya sağlık örgütü', 'antikor', 'sosyal mesafe',
+                      'bilim kurulu', 'who', 'dsö', 'dünya sağlık örgütü', 'antikor', 'sosyal mesafe',
                       'maske', 'taşıyıcı', 'normal', 'wuhan']
-
 
 content_filter_words = ['covid', 'corona', 'korona', 'biontech', 'sinovac', 'kovid']
 LIMIT = 1
@@ -23,6 +23,7 @@ LIMIT = 1
 def covid_relevance(article):
     title = article.title
     text = article.text
+
     keywords = article.meta_keywords
     description = article.meta_description
 
@@ -41,11 +42,18 @@ def covid_relevance(article):
     return 0  # definitely not relevant
 
 
+def load_seed_urls():
+    f = open('seeds.json', )
+    # returns JSON object as
+    # a dictionary
+    data = json.load(f)
+    return data["seeds"]
+
+
 # Main crawler class
 class CovidSpider(scrapy.Spider):
     name = "covids"
-    start_urls = [
-        'https://www.milliyet.com.tr/galeri/biontech-yan-etkileri-neler-biontech-mi-sinovac-mi-daha-etkili-6553256']
+    start_urls = load_seed_urls()
 
     # Count attribute for counting crawled urls
     def __init__(self):
