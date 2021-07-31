@@ -8,7 +8,7 @@ import json
 
 title_filter_words = ['covid', 'kovid', 'corona', 'korona', 'biontech',
                       'sinovac', 'kovid', 'virüs', 'virus', 'doz', 'aşı', 'vaka',
-                      'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı',
+                      'pandemi', 'salgın', 'varyant', 'karantina', 'bulaş', 'bağışıklı', 'filyasyon',
                       'test', 'pozitif', 'negatif', 'izolasyon', 'sokağa çıkma yasağı',
                       'bilim kurulu', 'who', 'dsö', 'dünya sağlık örgütü', 'antikor', 'sosyal mesafe',
                       'maske', 'taşıyıcı', 'normal', 'wuhan']
