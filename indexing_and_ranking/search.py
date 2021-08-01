@@ -3,17 +3,12 @@ import pandas as pd
 import numpy as np
 import time
 import faiss
+from flask import Flask
 
-document_based = True
-model = 'distilbert-base-multilingual-cased' #'distilbert-base-turkish-cased'
-model_name = model + '_document_based' if document_based else ''
+app = Flask(__name__)
 
-with open(f'./indexing_and_ranking/models/{model}.pkl', 'rb') as input:
-    model = pickle.load(input)
+df = pd.read_csv('./indexes/document_based_index.csv')
 
-df = pd.read_csv('./indexing_and_ranking/indexes/document_based_index.csv')
-
-index = faiss.read_index(f'./indexing_and_ranking/faiss_indexes/{model_name}.index')
 
 def search(query, top_k, index, model):
     query_vector = model.encode([query])
@@ -23,4 +18,24 @@ def search(query, top_k, index, model):
     urls = [df.url[idx] for idx in top_k_ids]
     return titles, urls
 
-titles, urls = search("biontech mi sinovac mı daha etkili", 5, index, model)
+
+@app.route('/', methods=['GET', 'POST'])
+def search_query():
+    document_based = True
+    model = 'distilbert-base-multilingual-cased'  # 'distilbert-base-turkish-cased'
+    model_name = model + '_document_based' if document_based else ''
+
+    input = open("./models/" + model + ".pkl", 'rb')
+    model = pickle.load(input)
+
+    index = faiss.read_index("./faiss_indexes/" + model_name + ".index")
+
+    titles, urls = search("sinovac mı biontech mi", 5, index, model)
+
+    print(titles, urls)
+
+    return "<h1>hi</h1>"
+
+
+if __name__ == '__main__':
+    app.run()
