@@ -26,8 +26,8 @@ elasticsearch_response = helpers.bulk(client, data, index="covid_doc_bm25")
 print ("helpers.bulk() RESPONSE:", json.dumps(elasticsearch_response, indent=4))
 """
 
-covid_query = {"query": {"simple_query_string": {"query": "korona aşılanma durumu almanya'da nasıl"}}, "size": 6}
+covid_query = {"query": {"simple_query_string": {"query": "<example query>"}}, "size": 10}
 
-elasticsearch_response = client.search(index="covid_doc_bm25", body=covid_query)
+elasticsearch_response = client.search(index="covid_documents", body=covid_query)
 
 print(json.dumps(elasticsearch_response, indent=4))
