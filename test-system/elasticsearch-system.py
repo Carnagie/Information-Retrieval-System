@@ -26,6 +26,14 @@ elasticsearch_response = helpers.bulk(client, data, index="covid_doc_bm25")
 print ("helpers.bulk() RESPONSE:", json.dumps(elasticsearch_response, indent=4))
 """
 
+
+with open('collection.json', "r", encoding="utf8") as f:
+    data = json.load(f)
+
+elasticsearch_response = helpers.bulk(client, data, index="latest_bm25")
+
+
+
 q = "Covid-19 belirtileri nelerdir?"
 covid_query = {"query": {"simple_query_string": {"query": f"{q}"}}, "size": 10}
 
